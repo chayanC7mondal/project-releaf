@@ -8,14 +8,20 @@ import Footer from "./pages/home/footer";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation />
-      <HeroSection />
-      <ImpactSection />
-      <FeaturesGrid />
-      <TestimonialsSection />
-      <CTASection />
+    <>
+      <header>
+        <Navigation />
+      </header>
+
+      <main className="min-h-screen bg-white">
+        <HeroSection />
+        <ImpactSection />
+        <FeaturesGrid />
+        <TestimonialsSection />
+        <CTASection />
+      </main>
+
       <Footer />
-    </div>
+    </>
   );
 }
