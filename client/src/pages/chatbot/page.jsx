@@ -12,7 +12,11 @@ import {
   Plane,
   UtensilsCrossed,
   Sparkles,
+<<<<<<< HEAD
 } from "lucide-react";
+=======
+} from "lucide-react"
+>>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
 export default function ChatbotPage() {
   const [messages, setMessages] = useState([
@@ -23,11 +27,18 @@ export default function ChatbotPage() {
         "🌱 Hello! I'm your DigiGreen waste management assistant. I can help you with waste sorting, composting, upcycling ideas, and finding the best ways to reduce your environmental impact. What would you like to know?",
       timestamp: new Date(),
     },
+<<<<<<< HEAD
   ]);
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const messagesEndRef = useRef(null);
+=======
+  ])
+  const [inputMessage, setInputMessage] = useState("")
+  const [isTyping, setIsTyping] = useState(false)
+  const messagesEndRef = useRef(null)
+>>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -43,9 +54,12 @@ export default function ChatbotPage() {
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
 
+<<<<<<< HEAD
     // Mark that user has interacted
     setHasInteracted(true);
 
+=======
+>>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
     const userMessage = {
       id: messages.length + 1,
       type: "user",
@@ -56,7 +70,6 @@ export default function ChatbotPage() {
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
 
-    // Simulate bot response with more realistic delay
     setTimeout(() => {
       const botResponse = {
         id: messages.length + 2,
@@ -73,7 +86,11 @@ export default function ChatbotPage() {
   };
 
   const getBotResponse = (message) => {
+<<<<<<< HEAD
     const lowerMessage = message.toLowerCase();
+=======
+    const lowerMessage = message.toLowerCase()
+>>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
     if (lowerMessage.includes("plastic") || lowerMessage.includes("bottle")) {
       return "🔄 Great question about plastic! Here's what you need to know:\n\n• **PET bottles (#1)**: Rinse thoroughly, remove caps, and place in recycling bin\n• **HDPE containers (#2)**: Excellent for recycling - clean and recycle\n• **Other plastics**: Check the number on the bottom - 1, 2, and 5 are most recyclable\n\n💡 **Pro tip**: Reuse plastic containers for storage before recycling!";
@@ -97,6 +114,7 @@ export default function ChatbotPage() {
   };
 
   const getBotCategory = (message) => {
+<<<<<<< HEAD
     const lowerMessage = message.toLowerCase();
     if (lowerMessage.includes("compost") || lowerMessage.includes("organic")) return "composting";
     if (lowerMessage.includes("plastic") || lowerMessage.includes("recycle")) return "recycling";
@@ -104,6 +122,15 @@ export default function ChatbotPage() {
     if (lowerMessage.includes("food")) return "food-waste";
     return "general";
   };
+=======
+    const lowerMessage = message.toLowerCase()
+    if (lowerMessage.includes("compost") || lowerMessage.includes("organic")) return "composting"
+    if (lowerMessage.includes("plastic") || lowerMessage.includes("recycle")) return "recycling"
+    if (lowerMessage.includes("upcycl") || lowerMessage.includes("reuse")) return "upcycling"
+    if (lowerMessage.includes("food")) return "food-waste"
+    return "general"
+  }
+>>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
   const quickQuestions = [
     { text: "How do I start composting at home?", icon: TreePine, category: "composting" },
@@ -183,6 +210,7 @@ export default function ChatbotPage() {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
         </div>
       </div>
 
@@ -283,6 +311,92 @@ export default function ChatbotPage() {
           <p className="text-xs text-green-600 mt-2 text-center">
             Get personalized advice on waste management, recycling, and sustainable living
           </p>
+=======
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            {messages.map((message) => (
+              <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
+                <div
+                  className={`flex items-start space-x-3 max-w-2xl ${
+                    message.type === "user" ? "flex-row-reverse space-x-reverse" : ""
+                  }`}
+                >
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      message.type === "user" ? "bg-green-600" : "bg-gradient-to-r from-green-500 to-emerald-500"
+                    }`}
+                  >
+                    {message.type === "user" ? (
+                      <User className="h-5 w-5 text-white" />
+                    ) : (
+                      <Bot className="h-5 w-5 text-white" />
+                    )}
+                  </div>
+                  <div
+                    className={`p-4 rounded-2xl shadow-sm ${
+                      message.type === "user"
+                        ? "bg-green-600 text-white rounded-br-md"
+                        : "bg-white text-gray-900 rounded-bl-md border border-green-100"
+                    }`}
+                  >
+                    <div className="whitespace-pre-line text-sm leading-relaxed">{message.content}</div>
+                    <div className={`text-xs mt-2 ${message.type === "user" ? "text-green-100" : "text-gray-500"}`}>
+                      {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {isTyping && (
+              <div className="flex justify-start">
+                <div className="flex items-start space-x-3 max-w-2xl">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-r from-green-500 to-emerald-500">
+                    <Bot className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="bg-white p-4 rounded-2xl rounded-bl-md border border-green-100 shadow-sm">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce"></div>
+                      <div
+                        className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.1s" }}
+                      ></div>
+                      <div
+                        className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.2s" }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Area */}
+          <div className="bg-white border-t border-green-100 p-4">
+            <div className="flex space-x-3">
+              <Input
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                placeholder="Ask about waste sorting, composting, recycling, or upcycling..."
+                className="flex-1 border-green-200 focus:border-green-500 focus:ring-green-500"
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+              />
+              <Button
+                onClick={handleSendMessage}
+                className="bg-green-600 hover:bg-green-700 text-white px-6"
+                disabled={!inputMessage.trim() || isTyping}
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-xs text-green-600 mt-2 text-center">
+              Get personalized advice on waste management, recycling, and sustainable living
+            </p>
+          </div>
+>>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
         </div>
       </div>
     </div>
