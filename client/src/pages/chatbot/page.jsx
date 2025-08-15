@@ -12,9 +12,7 @@ import {
   Plane,
   UtensilsCrossed,
   Sparkles,
-<<<<<<< HEAD
-} from "lucide-react";
-=======
+
 } from "lucide-react"
 >>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
