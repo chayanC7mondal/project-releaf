@@ -1,14 +1,14 @@
 import React from "react";
-import { Button } from "./components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
-import { Progress } from "./components/ui/progress";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import {
   Leaf,
   TrendingUp,
@@ -116,60 +116,6 @@ export default function ExplorePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-green-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <a href="/" className="flex items-center space-x-2">
-              <Leaf className="h-8 w-8 text-green-600" />
-              <span className="text-2xl font-bold text-green-800">
-                DigiGreen
-              </span>
-            </a>
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="/explore"
-                className="text-green-700 hover:text-green-900 font-medium border-b-2 border-green-600"
-              >
-                Explore
-              </a>
-              <a
-                href="/scanner"
-                className="text-green-700 hover:text-green-900 font-medium"
-              >
-                Scanner
-              </a>
-              <a
-                href="/chatbot"
-                className="text-green-700 hover:text-green-900 font-medium"
-              >
-                Chatbot
-              </a>
-              <a
-                href="/stations"
-                className="text-green-700 hover:text-green-900 font-medium"
-              >
-                Stations
-              </a>
-              <a
-                href="/marketplace"
-                className="text-green-700 hover:text-green-900 font-medium"
-              >
-                Marketplace
-              </a>
-            </div>
-            <a href="/signin">
-              <Button
-                variant="outline"
-                className="border-green-600 text-green-600 hover:bg-green-50 bg-transparent"
-              >
-                Sign In
-              </Button>
-            </a>
-          </div>
-        </div>
-      </nav>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-8">

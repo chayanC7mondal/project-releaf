@@ -1,9 +1,9 @@
 import React from "react";
-import { Button } from "./components/ui/button";
-import { Card, CardContent } from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
-import { Progress } from "./components/ui/progress";
-import { Input } from "./components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
 import {
   Leaf,
   TreePine,
@@ -19,49 +19,6 @@ import {
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-green-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <a href="/" className="flex items-center space-x-2">
-              <Leaf className="h-8 w-8 text-green-600" />
-              <span className="text-2xl font-bold text-green-800">
-                EcoPulse
-              </span>
-            </a>
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="/dashboard"
-                className="text-green-700 hover:text-green-900 font-medium"
-              >
-                Dashboard
-              </a>
-              <a
-                href="/projects"
-                className="text-green-700 hover:text-green-900 font-medium border-b-2 border-green-600"
-              >
-                Projects
-              </a>
-              <a
-                href="/community"
-                className="text-green-700 hover:text-green-900 font-medium"
-              >
-                Community
-              </a>
-              <a
-                href="/impact"
-                className="text-green-700 hover:text-green-900 font-medium"
-              >
-                Impact
-              </a>
-            </div>
-            <Button variant="outline" size="sm">
-              Profile
-            </Button>
-          </div>
-        </div>
-      </nav>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
