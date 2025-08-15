@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -90,52 +90,6 @@ const stationTypes = [
 export default function StationsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-green-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
-              <Leaf className="h-8 w-8 text-green-600" />
-              <span className="text-2xl font-bold text-green-800">
-                DigiGreen
-              </span>
-            </Link>
-
-            {/* Menu Links */}
-            <div className="hidden md:flex items-center space-x-8">
-              {[
-                { href: "/explore", label: "Explore" },
-                { href: "/scanner", label: "Scanner" },
-                { href: "/chatbot", label: "Chatbot" },
-                { href: "/stations", label: "Stations", active: true },
-                { href: "/marketplace", label: "Marketplace" },
-              ].map(({ href, label, active }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`text-green-700 hover:text-green-900 font-medium ${
-                    active ? "border-b-2 border-green-600" : ""
-                  }`}
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-
-            {/* Sign In */}
-            <Link href="/signin">
-              <Button
-                variant="outline"
-                className="border-green-600 text-green-600 hover:bg-green-50"
-              >
-                Sign In
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
-
       {/* Page Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
