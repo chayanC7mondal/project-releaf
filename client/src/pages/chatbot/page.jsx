@@ -21,16 +21,8 @@ import {
   Sparkles,
 } from "lucide-react"
 
-interface Message {
-  id: number
-  type: "user" | "bot"
-  content: string
-  timestamp: Date
-  category?: string
-}
-
 export default function ChatbotPage() {
-  const [messages, setMessages] = useState<Message[]>([
+  const [messages, setMessages] = useState([
     {
       id: 1,
       type: "bot",
@@ -41,7 +33,7 @@ export default function ChatbotPage() {
   ])
   const [inputMessage, setInputMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -54,7 +46,7 @@ export default function ChatbotPage() {
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return
 
-    const userMessage: Message = {
+    const userMessage = {
       id: messages.length + 1,
       type: "user",
       content: inputMessage,
@@ -64,9 +56,8 @@ export default function ChatbotPage() {
     setMessages((prev) => [...prev, userMessage])
     setIsTyping(true)
 
-    // Simulate bot response with more realistic delay
     setTimeout(() => {
-      const botResponse: Message = {
+      const botResponse = {
         id: messages.length + 2,
         type: "bot",
         content: getBotResponse(inputMessage),
@@ -80,7 +71,7 @@ export default function ChatbotPage() {
     setInputMessage("")
   }
 
-  const getBotResponse = (message: string): string => {
+  const getBotResponse = (message) => {
     const lowerMessage = message.toLowerCase()
 
     if (lowerMessage.includes("plastic") || lowerMessage.includes("bottle")) {
@@ -104,7 +95,7 @@ export default function ChatbotPage() {
     }
   }
 
-  const getBotCategory = (message: string): string => {
+  const getBotCategory = (message) => {
     const lowerMessage = message.toLowerCase()
     if (lowerMessage.includes("compost") || lowerMessage.includes("organic")) return "composting"
     if (lowerMessage.includes("plastic") || lowerMessage.includes("recycle")) return "recycling"
@@ -245,7 +236,9 @@ export default function ChatbotPage() {
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`flex items-start space-x-3 max-w-2xl ${message.type === "user" ? "flex-row-reverse space-x-reverse" : ""}`}
+                  className={`flex items-start space-x-3 max-w-2xl ${
+                    message.type === "user" ? "flex-row-reverse space-x-reverse" : ""
+                  }`}
                 >
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
