@@ -12,8 +12,12 @@ import {
   Plane,
   UtensilsCrossed,
   Sparkles,
+<<<<<<< HEAD
 
 } from "lucide-react"
+=======
+} from "lucide-react";
+>>>>>>> main
 
 export default function ChatbotPage() {
   const [messages, setMessages] = useState([
@@ -35,16 +39,44 @@ export default function ChatbotPage() {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     // Only scroll to bottom if user has interacted (sent a message)
+=======
+>>>>>>> main
     if (hasInteracted) {
       scrollToBottom();
     }
   }, [messages, hasInteracted]);
 
+<<<<<<< HEAD
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
 
     // Mark that user has interacted
+=======
+  // 🔹 Call Python backend
+  const getBotResponse = async (message) => {
+    try {
+      const res = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await res.json();
+      if (data.reply) {
+        return data.reply;
+      } else {
+        return "⚠️ Sorry, something went wrong with the server.";
+      }
+    } catch (err) {
+      return "⚠️ Error connecting to backend.";
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!inputMessage.trim()) return;
+>>>>>>> main
     setHasInteracted(true);
 
     const userMessage = {
@@ -57,6 +89,7 @@ export default function ChatbotPage() {
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
 
+<<<<<<< HEAD
     setTimeout(() => {
       const botResponse = {
         id: messages.length + 2,
@@ -112,6 +145,35 @@ export default function ChatbotPage() {
     { text: "How to reduce food waste?", icon: UtensilsCrossed, category: "food-waste" },
     { text: "Where to recycle electronics?", icon: Zap, category: "e-waste" },
     { text: "Best practices for paper recycling", icon: Recycle, category: "recycling" },
+=======
+    const botReply = await getBotResponse(inputMessage);
+
+    const botResponse = {
+      id: messages.length + 2,
+      type: "bot",
+      content: botReply,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, botResponse]);
+    setIsTyping(false);
+    setInputMessage("");
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
+  const quickQuestions = [
+    { text: "How do I start composting at home?", icon: TreePine },
+    { text: "What plastics can I recycle?", icon: Recycle },
+    { text: "Creative upcycling ideas for glass jars", icon: Lightbulb },
+    { text: "How to reduce food waste?", icon: UtensilsCrossed },
+    { text: "Where to recycle electronics?", icon: Zap },
+    { text: "Best practices for paper recycling", icon: Recycle },
+>>>>>>> main
   ];
 
   const categories = [
@@ -121,6 +183,7 @@ export default function ChatbotPage() {
     { name: "Food Waste", icon: UtensilsCrossed, color: "bg-orange-100 text-orange-800" },
   ];
 
+<<<<<<< HEAD
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSendMessage();
@@ -130,6 +193,11 @@ export default function ChatbotPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex">
       {/* Sidebar with Quick Actions */}
+=======
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex">
+      {/* Sidebar */}
+>>>>>>> main
       <div className="hidden lg:block w-80 bg-white border-r border-green-100 p-6 overflow-y-auto">
         <div className="space-y-6">
           <div>
@@ -186,9 +254,15 @@ export default function ChatbotPage() {
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Chat Header */}
+=======
+      {/* Chat Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+>>>>>>> main
         <div className="bg-white border-b border-green-100 p-4">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
@@ -246,6 +320,7 @@ export default function ChatbotPage() {
                 <div className="bg-white p-4 rounded-2xl rounded-bl-md border border-green-100 shadow-sm">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce"></div>
+<<<<<<< HEAD
                     <div
                       className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
                       style={{ animationDelay: "0.1s" }}
@@ -254,6 +329,10 @@ export default function ChatbotPage() {
                       className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
                       style={{ animationDelay: "0.2s" }}
                     ></div>
+=======
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+>>>>>>> main
                   </div>
                 </div>
               </div>
@@ -262,7 +341,11 @@ export default function ChatbotPage() {
           <div ref={messagesEndRef} />
         </div>
 
+<<<<<<< HEAD
         {/* Input Area */}
+=======
+        {/* Input */}
+>>>>>>> main
         <div className="bg-white border-t border-green-100 p-4">
           <div className="flex space-x-3">
             <input
@@ -287,4 +370,8 @@ export default function ChatbotPage() {
       </div>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main
