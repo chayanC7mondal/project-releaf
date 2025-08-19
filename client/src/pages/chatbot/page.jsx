@@ -12,9 +12,9 @@ import {
   Plane,
   UtensilsCrossed,
   Sparkles,
-
-} from "lucide-react"
->>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function ChatbotPage() {
   const [messages, setMessages] = useState([
@@ -25,25 +25,17 @@ export default function ChatbotPage() {
         "🌱 Hello! I'm your DigiGreen waste management assistant. I can help you with waste sorting, composting, upcycling ideas, and finding the best ways to reduce your environmental impact. What would you like to know?",
       timestamp: new Date(),
     },
-<<<<<<< HEAD
   ]);
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const messagesEndRef = useRef(null);
-=======
-  ])
-  const [inputMessage, setInputMessage] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef(null)
->>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
-    // Only scroll to bottom if user has interacted (sent a message)
     if (hasInteracted) {
       scrollToBottom();
     }
@@ -51,13 +43,8 @@ export default function ChatbotPage() {
 
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
-
-<<<<<<< HEAD
-    // Mark that user has interacted
     setHasInteracted(true);
 
-=======
->>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
     const userMessage = {
       id: messages.length + 1,
       type: "user",
@@ -84,11 +71,7 @@ export default function ChatbotPage() {
   };
 
   const getBotResponse = (message) => {
-<<<<<<< HEAD
     const lowerMessage = message.toLowerCase();
-=======
-    const lowerMessage = message.toLowerCase()
->>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
     if (lowerMessage.includes("plastic") || lowerMessage.includes("bottle")) {
       return "🔄 Great question about plastic! Here's what you need to know:\n\n• **PET bottles (#1)**: Rinse thoroughly, remove caps, and place in recycling bin\n• **HDPE containers (#2)**: Excellent for recycling - clean and recycle\n• **Other plastics**: Check the number on the bottom - 1, 2, and 5 are most recyclable\n\n💡 **Pro tip**: Reuse plastic containers for storage before recycling!";
@@ -107,12 +90,11 @@ export default function ChatbotPage() {
     } else if (lowerMessage.includes("reduce") || lowerMessage.includes("minimize")) {
       return "🎯 The best waste is no waste! Here's how to reduce:\n\n**Shopping:**\n• Bring reusable bags and containers\n• Buy in bulk to reduce packaging\n• Choose products with minimal packaging\n\n**Daily habits:**\n• Use a refillable water bottle\n• Go paperless with bills\n• Repair instead of replace when possible\n\n**The 5 R's**: Refuse → Reduce → Reuse → Recycle → Rot (compost)";
     } else {
-      return "🤔 That's an interesting question! I'd love to help you with waste management. Here are some topics I can assist with:\n\n• **Recycling guidelines** for different materials\n• **Composting** setup and maintenance\n• **Upcycling ideas** for common items\n• **Food waste reduction** strategies\n• **E-waste disposal** options\n• **Zero waste** lifestyle tips\n\nWhat specific area would you like to explore? Feel free to ask about any waste-related challenge you're facing!";
+      return "🤔 That's an interesting question! I'd love to help you with waste management. Here are some topics I can assist with:\n\n• **Recycling guidelines** for different materials\n• **Composting** setup and maintenance\n• **Upcycling ideas** for common items\n• **Food waste reduction** strategies\n• **E-waste disposal** options\n• **Zero waste** lifestyle tips\n\nWhat specific area would you like to explore?";
     }
   };
 
   const getBotCategory = (message) => {
-<<<<<<< HEAD
     const lowerMessage = message.toLowerCase();
     if (lowerMessage.includes("compost") || lowerMessage.includes("organic")) return "composting";
     if (lowerMessage.includes("plastic") || lowerMessage.includes("recycle")) return "recycling";
@@ -120,15 +102,6 @@ export default function ChatbotPage() {
     if (lowerMessage.includes("food")) return "food-waste";
     return "general";
   };
-=======
-    const lowerMessage = message.toLowerCase()
-    if (lowerMessage.includes("compost") || lowerMessage.includes("organic")) return "composting"
-    if (lowerMessage.includes("plastic") || lowerMessage.includes("recycle")) return "recycling"
-    if (lowerMessage.includes("upcycl") || lowerMessage.includes("reuse")) return "upcycling"
-    if (lowerMessage.includes("food")) return "food-waste"
-    return "general"
-  }
->>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
 
   const quickQuestions = [
     { text: "How do I start composting at home?", icon: TreePine, category: "composting" },
@@ -146,117 +119,95 @@ export default function ChatbotPage() {
     { name: "Food Waste", icon: UtensilsCrossed, color: "bg-orange-100 text-orange-800" },
   ];
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSendMessage();
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex">
-      {/* Sidebar with Quick Actions */}
+      {/* Sidebar */}
       <div className="hidden lg:block w-80 bg-white border-r border-green-100 p-6 overflow-y-auto">
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-lg font-semibold text-green-900 mb-4">Quick Questions</h3>
-            <div className="space-y-2">
-              {quickQuestions.map((question, index) => {
-                const IconComponent = question.icon;
-                return (
-                  <button
-                    key={index}
-                    className="w-full text-left justify-start h-auto p-3 hover:bg-green-50 text-green-700 rounded-md border-none bg-transparent cursor-pointer transition-colors flex items-start"
-                    onClick={() => setInputMessage(question.text)}
-                  >
-                    <IconComponent className="h-4 w-4 mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm">{question.text}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+        <h3 className="text-lg font-semibold text-green-900 mb-4">Quick Questions</h3>
+        <div className="space-y-2 mb-6">
+          {quickQuestions.map((q, i) => {
+            const Icon = q.icon;
+            return (
+              <button
+                key={i}
+                className="w-full flex items-start p-3 hover:bg-green-50 text-green-700 rounded-md transition-colors"
+                onClick={() => setInputMessage(q.text)}
+              >
+                <Icon className="h-4 w-4 mr-3 mt-0.5" />
+                <span className="text-sm">{q.text}</span>
+              </button>
+            );
+          })}
+        </div>
 
-          <div>
-            <h3 className="text-lg font-semibold text-green-900 mb-4">Categories</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {categories.map((category, index) => {
-                const IconComponent = category.icon;
-                return (
-                  <div
-                    key={index}
-                    className="text-center p-3 rounded-lg border border-green-100 hover:bg-green-50 transition-colors cursor-pointer"
-                  >
-                    <IconComponent className="h-6 w-6 mx-auto mb-2 text-green-600" />
-                    <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${category.color}`}>
-                      {category.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200">
-            <div className="flex items-start space-x-3">
-              <Sparkles className="h-6 w-6 text-green-600 mt-1" />
-              <div>
-                <h4 className="font-semibold text-green-900 mb-2">Today's Eco Tip</h4>
-                <p className="text-green-700 text-sm">
-                  Start a "Buy Nothing New" challenge for one month. You'll be amazed at how creative you become with
-                  reusing and upcycling!
-                </p>
+        <h3 className="text-lg font-semibold text-green-900 mb-4">Categories</h3>
+        <div className="grid grid-cols-2 gap-2 mb-6">
+          {categories.map((cat, i) => {
+            const Icon = cat.icon;
+            return (
+              <div
+                key={i}
+                className="text-center p-3 rounded-lg border border-green-100 hover:bg-green-50 cursor-pointer"
+              >
+                <Icon className="h-6 w-6 mx-auto mb-2 text-green-600" />
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${cat.color}`}>
+                  {cat.name}
+                </span>
               </div>
+            );
+          })}
+        </div>
+
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200">
+          <div className="flex items-start space-x-3">
+            <Sparkles className="h-6 w-6 text-green-600 mt-1" />
+            <div>
+              <h4 className="font-semibold text-green-900 mb-2">Today's Eco Tip</h4>
+              <p className="text-green-700 text-sm">
+                Start a "Buy Nothing New" challenge for one month. You'll be amazed at how creative you become with reusing and upcycling!
+              </p>
             </div>
           </div>
-<<<<<<< HEAD
         </div>
       </div>
 
-      {/* Main Chat Area */}
+      {/* Main Chat */}
       <div className="flex-1 flex flex-col">
-        {/* Chat Header */}
-        <div className="bg-white border-b border-green-100 p-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
-              <Bot className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold text-green-900">Waste Management Assistant</h2>
-              <p className="text-green-600 text-sm">Online • Ready to help with recycling, composting & more</p>
-            </div>
+        <div className="bg-white border-b border-green-100 p-4 flex items-center space-x-3">
+          <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+            <Bot className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <h2 className="text-xl font-semibold text-green-900">Waste Management Assistant</h2>
+            <p className="text-green-600 text-sm">Online • Ready to help</p>
           </div>
         </div>
 
-        {/* Messages */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {messages.map((message) => (
-            <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
+          {messages.map((msg) => (
+            <div key={msg.id} className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}>
               <div
                 className={`flex items-start space-x-3 max-w-2xl ${
-                  message.type === "user" ? "flex-row-reverse space-x-reverse" : ""
+                  msg.type === "user" ? "flex-row-reverse space-x-reverse" : ""
                 }`}
               >
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    message.type === "user" ? "bg-green-600" : "bg-gradient-to-r from-green-500 to-emerald-500"
+                    msg.type === "user" ? "bg-green-600" : "bg-gradient-to-r from-green-500 to-emerald-500"
                   }`}
                 >
-                  {message.type === "user" ? (
-                    <User className="h-5 w-5 text-white" />
-                  ) : (
-                    <Bot className="h-5 w-5 text-white" />
-                  )}
+                  {msg.type === "user" ? <User className="h-5 w-5 text-white" /> : <Bot className="h-5 w-5 text-white" />}
                 </div>
                 <div
                   className={`p-4 rounded-2xl shadow-sm ${
-                    message.type === "user"
+                    msg.type === "user"
                       ? "bg-green-600 text-white rounded-br-md"
                       : "bg-white text-gray-900 rounded-bl-md border border-green-100"
                   }`}
                 >
-                  <div className="whitespace-pre-line text-sm leading-relaxed">{message.content}</div>
-                  <div className={`text-xs mt-2 ${message.type === "user" ? "text-green-100" : "text-gray-500"}`}>
-                    {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  <div className="whitespace-pre-line text-sm leading-relaxed">{msg.content}</div>
+                  <div className={`text-xs mt-2 ${msg.type === "user" ? "text-green-100" : "text-gray-500"}`}>
+                    {msg.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                   </div>
                 </div>
               </div>
@@ -266,20 +217,14 @@ export default function ChatbotPage() {
           {isTyping && (
             <div className="flex justify-start">
               <div className="flex items-start space-x-3 max-w-2xl">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-r from-green-500 to-emerald-500">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-r from-green-500 to-emerald-500">
                   <Bot className="h-5 w-5 text-white" />
                 </div>
-                <div className="bg-white p-4 rounded-2xl rounded-bl-md border border-green-100 shadow-sm">
+                <div className="bg-white p-4 rounded-2xl border border-green-100 shadow-sm">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce"></div>
-                    <div
-                      className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.1s" }}
-                    ></div>
-                    <div
-                      className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    ></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
                   </div>
                 </div>
               </div>
@@ -288,113 +233,26 @@ export default function ChatbotPage() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area */}
         <div className="bg-white border-t border-green-100 p-4">
           <div className="flex space-x-3">
-            <input
+            <Input
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Ask about waste sorting, composting, recycling, or upcycling..."
-              className="flex-1 px-3 py-2 border border-green-200 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-              onKeyPress={handleKeyPress}
+              className="flex-1 border-green-200 focus:border-green-500 focus:ring-green-500"
+              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
             />
-            <button
+            <Button
               onClick={handleSendMessage}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-green-600 hover:bg-green-700 text-white px-6"
               disabled={!inputMessage.trim() || isTyping}
             >
               <Send className="h-4 w-4" />
-            </button>
+            </Button>
           </div>
           <p className="text-xs text-green-600 mt-2 text-center">
             Get personalized advice on waste management, recycling, and sustainable living
           </p>
-=======
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
-            {messages.map((message) => (
-              <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
-                <div
-                  className={`flex items-start space-x-3 max-w-2xl ${
-                    message.type === "user" ? "flex-row-reverse space-x-reverse" : ""
-                  }`}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      message.type === "user" ? "bg-green-600" : "bg-gradient-to-r from-green-500 to-emerald-500"
-                    }`}
-                  >
-                    {message.type === "user" ? (
-                      <User className="h-5 w-5 text-white" />
-                    ) : (
-                      <Bot className="h-5 w-5 text-white" />
-                    )}
-                  </div>
-                  <div
-                    className={`p-4 rounded-2xl shadow-sm ${
-                      message.type === "user"
-                        ? "bg-green-600 text-white rounded-br-md"
-                        : "bg-white text-gray-900 rounded-bl-md border border-green-100"
-                    }`}
-                  >
-                    <div className="whitespace-pre-line text-sm leading-relaxed">{message.content}</div>
-                    <div className={`text-xs mt-2 ${message.type === "user" ? "text-green-100" : "text-gray-500"}`}>
-                      {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="flex items-start space-x-3 max-w-2xl">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-r from-green-500 to-emerald-500">
-                    <Bot className="h-5 w-5 text-white" />
-                  </div>
-                  <div className="bg-white p-4 rounded-2xl rounded-bl-md border border-green-100 shadow-sm">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce"></div>
-                      <div
-                        className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Input Area */}
-          <div className="bg-white border-t border-green-100 p-4">
-            <div className="flex space-x-3">
-              <Input
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Ask about waste sorting, composting, recycling, or upcycling..."
-                className="flex-1 border-green-200 focus:border-green-500 focus:ring-green-500"
-                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-              />
-              <Button
-                onClick={handleSendMessage}
-                className="bg-green-600 hover:bg-green-700 text-white px-6"
-                disabled={!inputMessage.trim() || isTyping}
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-            <p className="text-xs text-green-600 mt-2 text-center">
-              Get personalized advice on waste management, recycling, and sustainable living
-            </p>
-          </div>
->>>>>>> 082f4526c731f59d70b2cff66452c3d89814260f
         </div>
       </div>
     </div>
