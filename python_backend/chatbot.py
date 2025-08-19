@@ -14,8 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-#, "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")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "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")
 
 class ChatRequest(BaseModel):
     message: str
