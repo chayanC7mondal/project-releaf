@@ -12,8 +12,7 @@ import {
   Plane,
   UtensilsCrossed,
   Sparkles,
-
-} from "lucide-react"
+} from "lucide-react";
 
 export default function ChatbotPage() {
   const [messages, setMessages] = useState([
@@ -35,16 +34,33 @@ export default function ChatbotPage() {
   };
 
   useEffect(() => {
-    // Only scroll to bottom if user has interacted (sent a message)
     if (hasInteracted) {
       scrollToBottom();
     }
   }, [messages, hasInteracted]);
 
-  const handleSendMessage = () => {
-    if (!inputMessage.trim()) return;
+  // 🔹 Call Python backend
+  const getBotResponse = async (message) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
 
-    // Mark that user has interacted
+      const data = await res.json();
+      if (data.reply) {
+        return data.reply;
+      } else {
+        return "⚠️ Sorry, something went wrong with the server.";
+      }
+    } catch (err) {
+      return "⚠️ Error connecting to backend.";
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!inputMessage.trim()) return;
     setHasInteracted(true);
 
     const userMessage = {
@@ -57,61 +73,33 @@ export default function ChatbotPage() {
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
 
-    setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        type: "bot",
-        content: getBotResponse(inputMessage),
-        timestamp: new Date(),
-        category: getBotCategory(inputMessage),
-      };
-      setMessages((prev) => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1500);
+    const botReply = await getBotResponse(inputMessage);
 
+    const botResponse = {
+      id: messages.length + 2,
+      type: "bot",
+      content: botReply,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, botResponse]);
+    setIsTyping(false);
     setInputMessage("");
   };
 
-  const getBotResponse = (message) => {
-    const lowerMessage = message.toLowerCase();
-
-    if (lowerMessage.includes("plastic") || lowerMessage.includes("bottle")) {
-      return "🔄 Great question about plastic! Here's what you need to know:\n\n• **PET bottles (#1)**: Rinse thoroughly, remove caps, and place in recycling bin\n• **HDPE containers (#2)**: Excellent for recycling - clean and recycle\n• **Other plastics**: Check the number on the bottom - 1, 2, and 5 are most recyclable\n\n💡 **Pro tip**: Reuse plastic containers for storage before recycling!";
-    } else if (lowerMessage.includes("compost") || lowerMessage.includes("organic")) {
-      return "🌱 Composting is fantastic for the environment! Here's how to get started:\n\n**Green materials (nitrogen-rich):**\n• Fruit and vegetable scraps\n• Coffee grounds and tea bags\n• Fresh grass clippings\n\n**Brown materials (carbon-rich):**\n• Dry leaves\n• Paper and cardboard\n• Sawdust\n\n**Avoid**: Meat, dairy, oils, and pet waste\n\n🏠 Start with a simple bin in your backyard or try indoor worm composting!";
-    } else if (lowerMessage.includes("upcycl") || lowerMessage.includes("reuse")) {
-      return "♻️ Upcycling is creative and eco-friendly! Here are some popular ideas:\n\n**Glass jars**: Storage containers, planters, candle holders\n**Old t-shirts**: Cleaning rags, tote bags, plant ties\n**Cardboard boxes**: Organizers, kids' playhouses, seedling trays\n**Wine corks**: Drawer pulls, plant markers, trivets\n\n🎨 **Challenge**: Before throwing anything away, ask 'How can I give this a second life?'";
-    } else if (lowerMessage.includes("food waste") || lowerMessage.includes("kitchen")) {
-      return "🍽️ Food waste reduction is crucial! Here's your action plan:\n\n**Prevention:**\n• Plan meals and make shopping lists\n• Store produce properly (apples with potatoes = faster spoiling!)\n• Use 'first in, first out' rotation\n\n**Creative uses:**\n• Vegetable scraps → homemade broth\n• Overripe bananas → banana bread\n• Citrus peels → natural cleaner\n\n📊 **Impact**: Reducing food waste by 50% saves the average family $1,500/year!";
-    } else if (lowerMessage.includes("electronic") || lowerMessage.includes("e-waste")) {
-      return "📱 E-waste requires special handling! Here's what to do:\n\n**Before disposal:**\n• Back up important data\n• Factory reset devices\n• Remove batteries if possible\n\n**Where to recycle:**\n• Best Buy, Staples (accept most electronics)\n• Manufacturer take-back programs\n• Municipal e-waste collection events\n\n⚠️ **Never** put electronics in regular trash - they contain toxic materials that can harm the environment!";
-    } else if (lowerMessage.includes("paper") || lowerMessage.includes("cardboard")) {
-      return "📄 Paper and cardboard are highly recyclable! Guidelines:\n\n**Recyclable:**\n• Clean cardboard boxes (remove tape)\n• Office paper, newspapers, magazines\n• Paper bags and envelopes\n\n**Not recyclable:**\n• Greasy pizza boxes (compost clean parts)\n• Wax-coated paper\n• Tissues and paper towels\n\n🌳 **Impact**: Recycling one ton of paper saves 17 trees, 7,000 gallons of water, and enough energy to power a home for 6 months!";
-    } else if (lowerMessage.includes("battery") || lowerMessage.includes("batteries")) {
-      return "🔋 Batteries need special recycling! Here's how:\n\n**Types & disposal:**\n• **Alkaline**: Many stores accept them (Home Depot, Lowe's)\n• **Rechargeable**: Best Buy, battery retailers\n• **Car batteries**: Auto parts stores (often give credit)\n\n**Never** put batteries in regular trash - they can leak toxic chemicals!\n\n🔍 Find locations: Call2Recycle.org has a location finder for battery recycling near you.";
-    } else if (lowerMessage.includes("reduce") || lowerMessage.includes("minimize")) {
-      return "🎯 The best waste is no waste! Here's how to reduce:\n\n**Shopping:**\n• Bring reusable bags and containers\n• Buy in bulk to reduce packaging\n• Choose products with minimal packaging\n\n**Daily habits:**\n• Use a refillable water bottle\n• Go paperless with bills\n• Repair instead of replace when possible\n\n**The 5 R's**: Refuse → Reduce → Reuse → Recycle → Rot (compost)";
-    } else {
-      return "🤔 That's an interesting question! I'd love to help you with waste management. Here are some topics I can assist with:\n\n• **Recycling guidelines** for different materials\n• **Composting** setup and maintenance\n• **Upcycling ideas** for common items\n• **Food waste reduction** strategies\n• **E-waste disposal** options\n• **Zero waste** lifestyle tips\n\nWhat specific area would you like to explore? Feel free to ask about any waste-related challenge you're facing!";
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
     }
   };
 
-  const getBotCategory = (message) => {
-    const lowerMessage = message.toLowerCase();
-    if (lowerMessage.includes("compost") || lowerMessage.includes("organic")) return "composting";
-    if (lowerMessage.includes("plastic") || lowerMessage.includes("recycle")) return "recycling";
-    if (lowerMessage.includes("upcycl") || lowerMessage.includes("reuse")) return "upcycling";
-    if (lowerMessage.includes("food")) return "food-waste";
-    return "general";
-  };
-
   const quickQuestions = [
-    { text: "How do I start composting at home?", icon: TreePine, category: "composting" },
-    { text: "What plastics can I recycle?", icon: Recycle, category: "recycling" },
-    { text: "Creative upcycling ideas for glass jars", icon: Lightbulb, category: "upcycling" },
-    { text: "How to reduce food waste?", icon: UtensilsCrossed, category: "food-waste" },
-    { text: "Where to recycle electronics?", icon: Zap, category: "e-waste" },
-    { text: "Best practices for paper recycling", icon: Recycle, category: "recycling" },
+    { text: "How do I start composting at home?", icon: TreePine },
+    { text: "What plastics can I recycle?", icon: Recycle },
+    { text: "Creative upcycling ideas for glass jars", icon: Lightbulb },
+    { text: "How to reduce food waste?", icon: UtensilsCrossed },
+    { text: "Where to recycle electronics?", icon: Zap },
+    { text: "Best practices for paper recycling", icon: Recycle },
   ];
 
   const categories = [
@@ -121,15 +109,9 @@ export default function ChatbotPage() {
     { name: "Food Waste", icon: UtensilsCrossed, color: "bg-orange-100 text-orange-800" },
   ];
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSendMessage();
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex">
-      {/* Sidebar with Quick Actions */}
+      {/* Sidebar */}
       <div className="hidden lg:block w-80 bg-white border-r border-green-100 p-6 overflow-y-auto">
         <div className="space-y-6">
           <div>
@@ -186,9 +168,9 @@ export default function ChatbotPage() {
         </div>
       </div>
 
-      {/* Main Chat Area */}
+      {/* Chat Area */}
       <div className="flex-1 flex flex-col">
-        {/* Chat Header */}
+        {/* Header */}
         <div className="bg-white border-b border-green-100 p-4">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
@@ -246,14 +228,8 @@ export default function ChatbotPage() {
                 <div className="bg-white p-4 rounded-2xl rounded-bl-md border border-green-100 shadow-sm">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce"></div>
-                    <div
-                      className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.1s" }}
-                    ></div>
-                    <div
-                      className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    ></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
                   </div>
                 </div>
               </div>
@@ -262,7 +238,7 @@ export default function ChatbotPage() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area */}
+        {/* Input */}
         <div className="bg-white border-t border-green-100 p-4">
           <div className="flex space-x-3">
             <input
