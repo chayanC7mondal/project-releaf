@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+aiofiles
+python-multipart
+pydantic
+langchain
+langchain-openai
+openai
+opencv-python
+numpy
+pandas
+pillow
+requests
+python-dotenv
